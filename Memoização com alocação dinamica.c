@@ -1,0 +1,50 @@
+// Feito por Pedro Woruby e Adryan Viel
+
+#include <stdio.h>
+#include <stdlib.h> 
+
+long long chamadas = 0;
+long long *memo; 
+
+long long fibonacci(int n) {
+    chamadas++;
+    
+    
+    if (memo[n] != -1) {
+        return memo[n];
+    }
+
+    
+    if (n == 0) return memo[n] = 0;
+    if (n == 1) return memo[n] = 1;
+
+    
+    memo[n] = fibonacci(n - 1) + fibonacci(n - 2);
+    return memo[n];
+}
+
+int main() {
+    int termos;
+    printf("Digite a quantidade de termos: ");
+    scanf("%d", &termos);
+
+    
+    memo = (long long *)malloc(termos * sizeof(long long));
+
+    
+    for (int i = 0; i < termos; i++) {
+        memo[i] = -1;
+    }
+
+    printf("Sequencia de fibonacci: ");
+    for (int i = 0; i < termos; i++) {
+        printf("%lld ", fibonacci(i));
+    }
+
+    printf("\nA quantidade de chamadas recursivas foi: %lld\n", chamadas);
+
+    
+    free(memo);
+
+    return 0;
+}
